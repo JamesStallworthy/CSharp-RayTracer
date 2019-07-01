@@ -18,5 +18,24 @@ namespace CSharp_RayTracer
         public Vector3 GetDir(){
             return dir;
         }
+
+        public Colour CalculateIntersection(Scene s){
+            int idOfCloset = -1;
+            float t,tLast = -1;
+
+            for (int i = 0; i < s.shapes.Count; i++){
+                if (s.shapes[i].Intersection(this,out t)){
+                    if (t < tLast || tLast == -1){
+                        tLast = t;
+                        idOfCloset = i;
+                    } 
+                } 
+            }
+
+            if (idOfCloset != -1) {
+                return s.shapes[idOfCloset].material.CalculateColour(this);
+            }
+            return new Colour();
+        }
     }
 }

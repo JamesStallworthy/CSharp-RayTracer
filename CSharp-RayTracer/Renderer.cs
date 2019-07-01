@@ -6,27 +6,31 @@ namespace CSharp_RayTracer
     public class Renderer
     {
         private Vector3 cameraLocation;
-        private IShape shapes;
         private int screenWidth;
         private int screenHeight;
         private float imageAspectRatio;
-
+        private Colour[,] pixelArray;
         private float fov;
+        Scene s;
         public Renderer(Vector3 _cameraLocation, int _screenWidth , int _screenHeight, int _fov)
         {
             cameraLocation = _cameraLocation;
             screenWidth = _screenWidth;
             screenHeight = _screenHeight;
-            fov = _fov;
+            fov = (float)Math.Tan((_fov * 3.14 / 180) / 2);
             imageAspectRatio = (float)screenWidth / (float)screenHeight;
-
+            pixelArray = new Colour[_screenWidth,_screenHeight];
+            s = new Scene();
         }
 
         public float PixelNormalized(int val, int val2){
             return ((float)val + 0.5f)/val2;
         }
-        public void Render(){
+        public Colour[,] Render(){
             Ray primaryRay;
+
+            s.AddShapeToScene(new Sphere(new Vector3(5,5,50),10,new MaterialFlatShaded(new Colour(0,255,0))));
+            s.AddShapeToScene(new Sphere(new Vector3(0,0,40),10,new MaterialFlatShaded(new Colour(0,0,255))));
 
             //Need to comment and figure out this code again.... (Copied from the original C++ implementation i did)
             float remappedX;//Normalised x of pixel
@@ -41,17 +45,13 @@ namespace CSharp_RayTracer
                     worldSpacex = remappedX * fov;
                     worldSpacey = remappedY * fov;
                     pCameraSpace = new Vector3(worldSpacex+ cameraLocation.X, worldSpacey + cameraLocation.Y,-1+cameraLocation.Z);
-                    Vector3 direction = Vector3.Normalize(pCameraSpace - cameraLocation);
-
+                    Vector3 direction = Vector3.Normalize(cameraLocation - pCameraSpace);
                     primaryRay = new Ray(cameraLocation,direction);
 
-                    Sphere sphere = new Sphere(new Vector3(20,20,20),10);
-                    if (sphere.Intersection(primaryRay)){
-                        Console.WriteLine(x + " " + y);
-                    }
-                   
+                    pixelArray[x,y] = primaryRay.CalculateIntersection(s);
                 }
             }
+            return pixelArray;
         }
     }
 }

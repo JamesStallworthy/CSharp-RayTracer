@@ -47,12 +47,14 @@ namespace CSharp_RayTracer
             return false;
         }
 
-        public void testRender(){
+        public void Render(Colour[,] arr){
             SDL.SDL_SetRenderDrawColor(renderer,0,0,0,0);
             SDL.SDL_RenderClear(renderer);
-            SDL.SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-            for(int i = 0; i < 500; i++){
-                SDL.SDL_RenderDrawPoint(renderer, i, i);
+            for(int x = 0; x < 500; x++){
+                for(int y = 0; y < 500; y++){
+                    SDL.SDL_SetRenderDrawColor(renderer, Convert.ToByte(arr[x,y].r), Convert.ToByte(arr[x,y].g), Convert.ToByte(arr[x,y].b), 255);
+                    SDL.SDL_RenderDrawPoint(renderer, 499-x, 499-y);
+                }
             }
             SDL.SDL_RenderPresent(renderer);
         }

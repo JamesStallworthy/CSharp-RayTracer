@@ -2,6 +2,7 @@ namespace CSharp_RayTracer
 {
     public interface IShape
     {
-        bool Intersection(Ray ray);
+        IMaterial material{get;set;}
+        bool Intersection(Ray ray, out float t);
     }
 }

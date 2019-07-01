@@ -8,15 +8,16 @@ namespace CSharp_RayTracer
         static void Main(string[] args)
         {
             WindowManager window = new WindowManager(500,500, "CSharp_RayTracer");
-            window.testRender();
+
+            Renderer scene = new Renderer(new Vector3(0,0,0),500,500,80);
+            window.Render(scene.Render());
 
             while (true){
                 if (window.EventLoop()){
                     break;
                 }
             }
-            Renderer test = new Renderer(new Vector3(0,0,0),500,500,80);
-            test.Render();
+            
         }
     }
 }
