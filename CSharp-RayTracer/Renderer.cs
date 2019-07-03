@@ -11,8 +11,8 @@ namespace CSharp_RayTracer
         private float imageAspectRatio;
         private Colour[,] pixelArray;
         private float fov;
-        Scene s;
-        public Renderer(Vector3 _cameraLocation, int _screenWidth , int _screenHeight, int _fov)
+        Scene scene;
+        public Renderer(Vector3 _cameraLocation, int _screenWidth , int _screenHeight, int _fov, Scene _scene)
         {
             cameraLocation = _cameraLocation;
             screenWidth = _screenWidth;
@@ -20,7 +20,7 @@ namespace CSharp_RayTracer
             fov = (float)Math.Tan((_fov * 3.14 / 180) / 2);
             imageAspectRatio = (float)screenWidth / (float)screenHeight;
             pixelArray = new Colour[_screenWidth,_screenHeight];
-            s = new Scene();
+            scene = _scene;
         }
 
         public float PixelNormalized(int val, int val2){
@@ -28,9 +28,6 @@ namespace CSharp_RayTracer
         }
         public Colour[,] Render(){
             Ray primaryRay;
-
-            s.AddShapeToScene(new Sphere(new Vector3(5,5,50),10,new MaterialFlatShaded(new Colour(0,255,0))));
-            s.AddShapeToScene(new Sphere(new Vector3(0,0,40),10,new MaterialFlatShaded(new Colour(0,0,255))));
 
             //Need to comment and figure out this code again.... (Copied from the original C++ implementation i did)
             float remappedX;//Normalised x of pixel
@@ -48,7 +45,7 @@ namespace CSharp_RayTracer
                     Vector3 direction = Vector3.Normalize(cameraLocation - pCameraSpace);
                     primaryRay = new Ray(cameraLocation,direction);
 
-                    pixelArray[x,y] = primaryRay.CalculateIntersection(s);
+                    pixelArray[x,y] = primaryRay.CalculateIntersection(scene);
                 }
             }
             return pixelArray;

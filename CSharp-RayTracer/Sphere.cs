@@ -38,5 +38,9 @@ namespace CSharp_RayTracer
             t = (t1 < t2) ? t1 : t2;
             return true;
         }
+
+        public Vector3 getOrigin(){
+            return origin;
+        }
     }
 }
