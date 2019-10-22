@@ -39,7 +39,7 @@ namespace CSharp_RayTracer
             return true;
         }
 
-        public Vector3 getOrigin(){
+        public Vector3 GetOrigin(){
             return origin;
         }
     }

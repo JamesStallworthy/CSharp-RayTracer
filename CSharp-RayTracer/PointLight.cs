@@ -5,15 +5,20 @@ namespace CSharp_RayTracer
 {
     public class PointLight:ILight
     {
-        public Vector3 origin;
+        private Vector3 origin;
+        private Colour colour = new Colour(255,255,255);
 
         public PointLight(Vector3 _origin)
         {
             origin = _origin;
         }
 
-        public Vector3 getOrigin(){
+        public Vector3 GetOrigin(){
             return origin;
+        }
+
+        public Colour GetColour(){
+            return colour;
         }
     }
 }

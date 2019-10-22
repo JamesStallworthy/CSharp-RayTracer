@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace CSharp_RayTracer
 {
     public class Scene
     {
+        public Vector3 cameraLocation;
         public ILight lightSource;
         public List<IShape> shapes = new List<IShape>();
 

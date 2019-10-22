@@ -8,6 +8,6 @@ namespace CSharp_RayTracer
         IMaterial material{get;set;}
         bool Intersection(Ray ray, out float t);
 
-        Vector3 getOrigin();
+        Vector3 GetOrigin();
     }
 }

@@ -21,6 +21,7 @@ namespace CSharp_RayTracer
             imageAspectRatio = (float)screenWidth / (float)screenHeight;
             pixelArray = new Colour[_screenWidth,_screenHeight];
             scene = _scene;
+            scene.cameraLocation = cameraLocation;
         }
 
         public float PixelNormalized(int val, int val2){

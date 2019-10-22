@@ -5,6 +5,8 @@ namespace CSharp_RayTracer
 {
     public interface ILight
     {
-        Vector3 getOrigin();
+        Vector3 GetOrigin();
+
+        Colour GetColour();
     }
 }
